@@ -4,7 +4,7 @@ from StudentClass import *
 import pickle
 
 
-    
+#Function to search book
 def searchBook(isbn):
     d={}
     with open("Book_dt.pkl","rb") as f:
@@ -14,6 +14,7 @@ def searchBook(isbn):
                 return d
         else:
             return False
+#Function to search book by title
 def searchBookTitle(title):
     d={}
     with open("Book_dt.pkl","rb") as f:
@@ -24,6 +25,7 @@ def searchBookTitle(title):
                 break
         else:
             print("No book Found!!!")
+#Function to search book by ISBN
 def searchBookIsbn(isbn):
     with open("Book_dt.pkl","rb") as f:
         d=pickle.load(f)
@@ -33,6 +35,7 @@ def searchBookIsbn(isbn):
                 break
         else:
             print("No book Found!!!")
+#Function to Search book by Author name.
 def searchBookAuthor(author):
     d={}
     with open("Book_dt.pkl","rb") as f:
@@ -43,6 +46,7 @@ def searchBookAuthor(author):
                 break
         else:
             print("No book Found!!!")
+#Function to choose the search mode.
 def printBookDetails():
     ch=input("Enter the choice for search mode:\n1->ISBN     2->Title     3->Author")
     if ch=='1':
@@ -56,6 +60,7 @@ def printBookDetails():
         searchBookAuthor(author)
     else:
         print("Invalid Choice!!!")
+#Function to add book to library
 def addBook():
     title=input("Enter the book title: ")
     author=input("Enter the author: ")
@@ -73,11 +78,10 @@ def addBook():
                 break
         else:
             d[isbn]=Book(title,author,no_of_copies)
-           # print(d)
     with open("Book_dt.pkl","wb") as f:
-        #print(d)
         pickle.dump(d,f)
         print("Book details entered successfully!!!")
+#Function that search for a student and returns the object
 def searchStudent(st_id):
     l=loadStudentList()
     for i in l:
@@ -85,11 +89,13 @@ def searchStudent(st_id):
             return i
     else:
         return False
+#Function to load student list
 def loadStudentList():
     l=[]
     with open ("Student_dt.pkl",'rb') as f:
         l=pickle.load(f)
     return l
+#Function to print details of all Students.
 def showStudent():
     l=loadStudentList()
     for i in l:
@@ -97,6 +103,7 @@ def showStudent():
         print(f"Name: {i.name}\nBranch: {i.branch}\nRoll no: {i.st_roll}\nNo of books issued: {i.no_of_books}\nList of books: {i.book_list}")
     if l==[]:
         print("No Student Entered!!!")
+#Function to add Student to library.
 def addStudent():
     name=input("Enter the name of Student: ")
     print("Select branch: ")
@@ -129,7 +136,7 @@ def addStudent():
     with open("Student_dt.pkl","wb") as f:
         pickle.dump(l,f)
     print("Student details entered successfully!!!")
- 
+#Function to show book details.
 def showBook():
     with open("Book_dt.pkl","rb") as f:
         d=pickle.load(f)
@@ -139,6 +146,7 @@ def showBook():
                 print(f"ISBN: {i}\nTitle: {y.title}\nAuthor: {y.author}\nNo of Copies: {y.no_of_copies}")
     if d=={}:
         print("No Books Entered!!!")
+#Function to print student detail.
 def printStudentDetails():
     s_id=input("Enter student enrollment no: ")
     i=searchStudent(s_id)
@@ -147,7 +155,7 @@ def printStudentDetails():
     else:
         print("Invalid Enrollment no!!!")
         
-   
+#Function to issue book to student.
 def issue_book_to_student():
     std_id=input("Enter the student enrollment no: ")
     i=searchStudent(std_id)
@@ -180,7 +188,7 @@ def issue_book_to_student():
     with open("Student_dt.pkl","wb") as f:
         pickle.dump(z,f)
     print("Book Issued successfully!!!")
-
+#Function to Return book from student
 def returnBookStudent():
     sd_id=input("Enter the enrollment no: ")
     i=searchStudent(sd_id)
@@ -205,7 +213,7 @@ def returnBookStudent():
     with open("Book_dt.pkl","wb") as f:
         pickle.dump(b,f)
     print("Book returned successfully!!!")
-    
+#Function to Search a faculty
 def searchFaculty(f_id):        
     l=loadFacultyList()
     for i in l:
@@ -213,6 +221,7 @@ def searchFaculty(f_id):
             return i
     else:
         return False
+#Function to print details of all Faculties.
 def showFaculty():
     l=loadFacultyList()
     for i in l:
@@ -222,12 +231,13 @@ def showFaculty():
             print(f"ISBN: {x}\tNo of Copies: {y}")
     if l==[]:
         print("No faculty Entered")
+#Function to load Faculty list.
 def loadFacultyList():
     l=[]
     with open ("Faculty_dt.pkl",'rb') as f:
         l=pickle.load(f)
     return l          
-
+#Function to print detail of a faculty.
 def printFacultyDetails():
     f_id=int(input("Enter Faculty Id no: "))
     i=searchFaculty(f_id)
@@ -235,7 +245,7 @@ def printFacultyDetails():
         print(f"Name: {i.ename}\nFaculty Id no: {i.eid}\nList of books: {i.book_list.items()}")
     else:
         print("Invalid Faculty Id no!!!")
-        
+#Function to add faculty.
 def addFaculty():
     name=input("Enter the faculty name: ")
     eid=int(input("Enter the faulty id: "))
@@ -251,7 +261,7 @@ def addFaculty():
     with open("Faculty_dt.pkl","wb") as f:
         pickle.dump(l,f)
         print("Faculty details entered successfully!!!")
-
+#Function to issue book to faculty.
 def issue_book_to_faculty():
     ep_id=int(input("Enter the Faculty id: "))
     i=searchFaculty(ep_id)
@@ -274,7 +284,7 @@ def issue_book_to_faculty():
     with open("Book_dt.pkl","wb") as f:
         pickle.dump(b,f)
     print("Book issued successfully!!!")
-    
+#Function to return book from Faculty.
 def returnBookFaculty():
     ep_id=int(input("Enter the Faculty id: "))
     i=searchFaculty(ep_id)
