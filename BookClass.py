@@ -1,4 +1,4 @@
-#title author isbn and numof copies
+#Book Class 
 class Book:
     def __init__(self,title,author,no_of_copies):
         self.title=title
